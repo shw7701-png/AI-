@@ -21,8 +21,10 @@ allowed-tools: Read Glob Grep Bash(gh issue create *) Bash(gh issue list *) Bash
 
 - `.claude/scheduled-tasks/daily-ai-briefing/SKILL.md` — 스케줄 태스크 프롬프트
 - `.claude/skills/review-and-issue/SKILL.md` — 이 스킬 자체
+- `.claude/skills/optimize/SKILL.md` — 최적화 루프 오케스트레이터
 - `.claude/settings.local.json` — 권한 설정
 - `README.md` — 설치 및 사용 가이드
+- `.gitignore` — 무시 패턴
 
 ### 2단계: 이슈 발굴 기준
 

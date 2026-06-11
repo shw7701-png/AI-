@@ -45,7 +45,7 @@
 
 2. Claude Code 앱에서 스케줄 태스크를 등록합니다:
    - 사이드바 **Routines → New routine → Local** 클릭
-   - **Instructions**: `.claude/scheduled-tasks/daily-ai-briefing/SKILL.md` 내용을 붙여넣기
+   - **Instructions**: `.claude/scheduled-tasks/daily-ai-briefing/SKILL.md`의 `---` 구분자 이하 본문(body)을 붙여넣기 (frontmatter `name`/`description` 부분은 제외)
    - **Schedule**: Daily, 07:00 AM
    - **Working directory**: 레포를 클론한 경로로 설정 ← **반드시 프로젝트 폴더로 지정** (미설정 시 `git rev-parse` 실패)
    - 실제 실행 파일은 `%USERPROFILE%\.claude\scheduled-tasks\daily-ai-briefing\SKILL.md`에 자동 저장됩니다
@@ -63,6 +63,11 @@ $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoi
 $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType Interactive -RunLevel Limited
 Register-ScheduledTask -TaskName "Claude Code - AI 브리핑 자동 실행" -Action $action -Trigger $trigger -Settings $settings -Principal $principal -Force
 ```
+
+> ⚠️ `Claude_pzs8sxrjxfjjc!Claude`는 Microsoft Store 설치 기준 AppUserModelID입니다. 실행이 안 될 경우 아래 명령으로 실제 ID를 확인하세요:
+> ```powershell
+> Get-StartApps | Where-Object { $_.Name -like '*Claude*' }
+> ```
 
 ## 실행 제약 사항
 

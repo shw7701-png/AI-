@@ -21,13 +21,13 @@ description: 매일 오전 7시 LLM & 생성AI 동향 브리핑 (HTML 형식)
 2. 검색 결과를 바탕으로 실제 뉴스·발표만 사용한다. 추측이나 오래된 정보는 제외.
 3. show_widget으로 HTML 브리핑을 렌더링한다.
 4. 동일한 HTML 내용을 `briefings/YYYY-MM-DD.html` 형식으로 파일 저장한다. (YYYY-MM-DD는 실제 오늘 날짜)
-   - `git rev-parse --show-toplevel` 명령으로 레포 루트(REPO_ROOT)를 동적으로 확인한다.
-   - 저장 경로: `<REPO_ROOT>/briefings/YYYY-MM-DD.html`
-   - 저장 실패 시 오류 내용을 `<REPO_ROOT>/briefings/YYYY-MM-DD-error.txt`에 기록하고 계속 진행한다.
-5. 아래 git 명령을 순서대로 실행하여 GitHub에 자동 커밋한다. REPO_ROOT는 4단계에서 확인한 값으로 대체한다:
-   - `git -C "<REPO_ROOT>" add briefings/`
-   - `git -C "<REPO_ROOT>" commit -m "브리핑: YYYY-MM-DD"`
-   - `git -C "<REPO_ROOT>" push`
+   - `git rev-parse --show-toplevel` 명령을 실행하여 그 출력값을 REPO_ROOT로 사용한다.
+   - 저장 경로: `{REPO_ROOT}/briefings/YYYY-MM-DD.html` (REPO_ROOT는 위 명령의 실제 출력값으로 치환)
+   - 저장 실패 시 오류 내용을 `{REPO_ROOT}/briefings/YYYY-MM-DD-error.txt`에 기록하고 계속 진행한다.
+5. 아래 git 명령을 순서대로 실행하여 GitHub에 자동 커밋한다. {REPO_ROOT}는 4단계에서 확인한 실제 경로로 치환한다:
+   - `git -C "{REPO_ROOT}" add briefings/`
+   - `git -C "{REPO_ROOT}" commit -m "브리핑: YYYY-MM-DD"`
+   - `git -C "{REPO_ROOT}" push`
    - push 실패 시 에러 메시지를 출력하고 종료한다 (다음 실행에서 재시도됨).
 
 ## 출력 형식 요구사항

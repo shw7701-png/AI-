@@ -2,7 +2,7 @@
 name: optimize
 description: 프로젝트 분석 → 이슈 생성 → 이슈 해결 → 평가 → 반복하는 전체 최적화 루프를 실행한다.
 disable-model-invocation: true
-allowed-tools: Read Edit Write Glob Grep Bash(git *) Bash(gh *) Bash(git rev-parse *) WebFetch WebSearch
+allowed-tools: Read Edit Write Glob Grep Bash(git *) Bash(gh *) WebFetch WebSearch
 ---
 
 ## 프로젝트 스킬 목록
