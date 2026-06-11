@@ -82,8 +82,9 @@ Get-TimeZone
 | 명령어 | 설명 |
 |--------|------|
 | `/review-and-issue` | 프로젝트 파일을 검토하여 버그·개선점을 GitHub 이슈로 자동 등록 |
+| `/optimize` | 프로젝트 분석 → 이슈 생성 → 이슈 해결 → 평가 → 반복하는 전체 최적화 루프 실행 |
 
-> Claude Code 재시작 후 `/review-and-issue` 로 실행하세요. 스킬 파일 위치: `.claude/skills/review-and-issue/SKILL.md`
+> Claude Code 재시작 후 `/review-and-issue` 또는 `/optimize` 로 실행하세요.
 
 ## 브리핑 파일 확인
 
