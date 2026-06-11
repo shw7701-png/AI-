@@ -6,7 +6,7 @@
       "WebSearch",
       "WebFetch",
       "Write",
-      "Bash(git -C * add briefings/)",
+      "Bash(git -C * add *)",
       "Bash(git -C * commit -m *)",
       "Bash(git -C * push)",
       "Bash(git rev-parse *)"

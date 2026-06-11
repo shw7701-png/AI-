@@ -2,7 +2,7 @@
 name: optimize
 description: 프로젝트 스킬 3종을 파악하고 분석→이슈생성→해결→평가→반복하는 최적화 루프를 실행한다. 오픈 이슈가 0개가 될 때까지 최대 3라운드 반복한다.
 disable-model-invocation: true
-allowed-tools: Read Edit Write Glob Grep Bash(git *) Bash(gh *) WebFetch WebSearch
+allowed-tools: Read Edit Write Glob Grep Bash(git *) Bash(gh *) WebFetch WebSearch mcp__scheduled-tasks__update_scheduled_task
 ---
 
 ## 프로젝트 스킬 목록
