@@ -4,15 +4,11 @@
       "mcp__visualize__read_me",
       "mcp__visualize__show_widget",
       "WebSearch",
+      "WebFetch",
       "Write",
       "Bash(git -C * add briefings/)",
       "Bash(git -C * commit -m *)",
-      "Bash(git -C * push)",
-      "mcp__scheduled-tasks__list_scheduled_tasks",
-      "WebFetch(domain:docs.anthropic.com)",
-      "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\Admin\\\\Desktop\\\\ai 샘플\\\\scheduled-tasks\")",
-      "PowerShell(git -C \"C:\\\\Users\\\\Admin\\\\Desktop\\\\ai ����\" add -A)",
-      "PowerShell(git -C \"C:\\\\Users\\\\Admin\\\\Desktop\\\\ai ����\" status)"
+      "Bash(git -C * push)"
     ]
   }
 }

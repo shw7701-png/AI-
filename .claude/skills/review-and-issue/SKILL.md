@@ -7,9 +7,11 @@ allowed-tools: Read Glob Grep Bash(gh issue create *) Bash(gh issue list *)
 
 프로젝트 파일을 꼼꼼히 검토하여 버그와 개선점을 찾아내고, 각각을 GitHub 이슈로 등록하라.
 
-## 현재 프로젝트 파일 목록
+## 현재 프로젝트 정보
 
-!`cd "C:\Users\Admin\Desktop\ai 샘플" && git ls-files`
+!`git ls-files`
+
+!`gh repo view --json nameWithOwner -q .nameWithOwner`
 
 ## 단계별 실행 방법
 
@@ -39,19 +41,19 @@ allowed-tools: Read Glob Grep Bash(gh issue create *) Bash(gh issue list *)
 
 ### 3단계: 기존 이슈 확인
 
-중복 등록을 방지하기 위해 기존 이슈 목록을 먼저 확인한다:
+중복 등록을 방지하기 위해 기존 이슈 목록을 먼저 확인한다. REPO는 위에서 확인한 nameWithOwner 값이다:
 
 ```
-gh issue list --repo shw7701-png/AI- --state open --limit 50
+gh issue list --repo <REPO> --state open --limit 50
 ```
 
 ### 4단계: GitHub 이슈 등록
 
-발견한 항목마다 아래 형식으로 이슈를 등록한다. 기존 이슈와 동일한 내용은 건너뛴다.
+발견한 항목마다 아래 형식으로 이슈를 등록한다. REPO는 위에서 확인한 nameWithOwner 값으로 대체한다. 기존 이슈와 동일한 내용은 건너뛴다.
 
 ```
 gh issue create \
-  --repo shw7701-png/AI- \
+  --repo <REPO> \
   --title "[Bug] 이슈 제목" \
   --body "## 문제 설명\n\n...\n\n## 재현 방법\n\n1. ...\n\n## 예상 동작\n\n...\n\n## 실제 동작\n\n..." \
   --label "bug"
@@ -59,7 +61,7 @@ gh issue create \
 
 ```
 gh issue create \
-  --repo shw7701-png/AI- \
+  --repo <REPO> \
   --title "[Enhancement] 개선 제목" \
   --body "## 개선 설명\n\n...\n\n## 현재 상태\n\n...\n\n## 제안 방법\n\n..." \
   --label "enhancement"

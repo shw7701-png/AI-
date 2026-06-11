@@ -51,6 +51,14 @@ Register-ScheduledTask -TaskName "Claude Code - AI 브리핑 자동 실행" -Act
 Get-TimeZone
 ```
 
+## 제공 스킬
+
+| 명령어 | 설명 |
+|--------|------|
+| `/review-and-issue` | 프로젝트 파일을 검토하여 버그·개선점을 GitHub 이슈로 자동 등록 |
+
+> Claude Code 재시작 후 `/review-and-issue` 로 실행하세요. 스킬 파일 위치: `.claude/skills/review-and-issue/SKILL.md`
+
 ## 브리핑 파일 확인
 
 `briefings/` 폴더에 날짜별 HTML 파일이 쌓입니다. 브라우저로 열어 확인하세요.
