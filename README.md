@@ -39,15 +39,15 @@
 
 1. 이 레포를 원하는 경로에 클론합니다:
    ```
-   git clone https://github.com/shw7701-png/AI-.git <로컬-경로>
+   git clone https://github.com/shw7701-png/ai-briefing-agent.git <로컬-경로>
    ```
-   예시: `git clone https://github.com/shw7701-png/AI-.git C:\Projects\ai-briefing`
+   예시: `git clone https://github.com/shw7701-png/ai-briefing-agent.git C:\Projects\ai-briefing`
 
 2. Claude Code 앱에서 스케줄 태스크를 등록합니다:
    - 사이드바 **Routines → New routine → Local** 클릭
    - **Instructions**: `.claude/scheduled-tasks/daily-ai-briefing/SKILL.md` 내용을 붙여넣기
    - **Schedule**: Daily, 07:00 AM
-   - **Working directory**: 레포를 클론한 경로로 설정 ← 반드시 프로젝트 폴더로 지정
+   - **Working directory**: 레포를 클론한 경로로 설정 ← **반드시 프로젝트 폴더로 지정** (미설정 시 `git rev-parse` 실패)
    - 실제 실행 파일은 `%USERPROFILE%\.claude\scheduled-tasks\daily-ai-briefing\SKILL.md`에 자동 저장됩니다
 
 3. Windows 작업 스케줄러에 Claude Code 자동 실행을 등록합니다 (아래 참고).

@@ -2,7 +2,7 @@
 name: review-and-issue
 description: 프로젝트 내용을 검토하여 버그와 개선점을 파악하고 GitHub 이슈로 등록한다.
 disable-model-invocation: true
-allowed-tools: Read Glob Grep Bash(gh issue create *) Bash(gh issue list *)
+allowed-tools: Read Glob Grep Bash(gh issue create *) Bash(gh issue list *) Bash(gh repo view *)
 ---
 
 프로젝트 파일을 꼼꼼히 검토하여 버그와 개선점을 찾아내고, 각각을 GitHub 이슈로 등록하라.
