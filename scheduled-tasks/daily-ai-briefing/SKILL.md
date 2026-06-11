@@ -20,11 +20,13 @@ description: 매일 오전 7시 LLM & 생성AI 동향 브리핑 (HTML 형식)
    - "생성AI LLM 최신 뉴스 [오늘 날짜]"
 2. 검색 결과를 바탕으로 실제 뉴스·발표만 사용한다. 추측이나 오래된 정보는 제외.
 3. show_widget으로 HTML 브리핑을 렌더링한다.
-4. 동일한 HTML 내용을 `C:\Users\Admin\Desktop\ai 샘플\briefings\YYYY-MM-DD.html` 형식으로 파일 저장한다. (YYYY-MM-DD는 실제 오늘 날짜)
-5. 아래 git 명령을 순서대로 실행하여 GitHub에 자동 커밋한다:
-   - `git -C "C:\Users\Admin\Desktop\ai 샘플" add briefings/`
-   - `git -C "C:\Users\Admin\Desktop\ai 샘플" commit -m "브리핑: YYYY-MM-DD"`
-   - `git -C "C:\Users\Admin\Desktop\ai 샘플" push`
+4. 동일한 HTML 내용을 `briefings/YYYY-MM-DD.html` 형식으로 파일 저장한다. (YYYY-MM-DD는 실제 오늘 날짜)
+   - 저장 전 `git -C . rev-parse --show-toplevel` 명령으로 레포 루트(REPO_ROOT)를 확인한다.
+   - 저장 경로: `<REPO_ROOT>\briefings\YYYY-MM-DD.html`
+5. 아래 git 명령을 순서대로 실행하여 GitHub에 자동 커밋한다. REPO_ROOT는 4단계에서 확인한 값으로 대체한다:
+   - `git -C "<REPO_ROOT>" add briefings/`
+   - `git -C "<REPO_ROOT>" commit -m "브리핑: YYYY-MM-DD"`
+   - `git -C "<REPO_ROOT>" push`
 
 ## 출력 형식 요구사항
 
