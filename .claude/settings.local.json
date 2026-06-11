@@ -3,10 +3,7 @@
     "allow": [
       "mcp__visualize__read_me",
       "mcp__visualize__show_widget",
-      "WebSearch",
-      "PowerShell(gh --version)",
-      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); gh auth status)",
-      "PowerShell(Get-ChildItem \"C:\\\\Program Files\\\\GitHub CLI\" -ErrorAction SilentlyContinue; Get-ChildItem \"${env:LOCALAPPDATA}\\\\Programs\\\\GitHub CLI\" -ErrorAction SilentlyContinue)"
+      "WebSearch"
     ]
   }
 }
