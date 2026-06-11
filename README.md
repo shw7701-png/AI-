@@ -1,6 +1,23 @@
-# AI 샘플
+# ai-briefing-agent
 
 매일 오전 7시 KST (UTC+9) LLM & 생성AI 동향 브리핑 자동화 프로젝트
+
+## 동작 방식
+
+별도의 Python/JS 코드 없이 **Claude Code 데스크톱 앱이 에이전트 역할**을 합니다.  
+스케줄 태스크가 실행되면 Claude가 직접 웹 검색 → HTML 생성 → 파일 저장 → GitHub 커밋을 수행합니다.
+
+```
+[Claude Code 스케줄 태스크]
+       ↓ 매일 오전 7시
+  WebSearch (최신 AI 뉴스 수집)
+       ↓
+  HTML 브리핑 생성
+       ↓
+  briefings/YYYY-MM-DD.html 저장
+       ↓
+  git commit & push
+```
 
 ## 브리핑 구성
 
@@ -9,7 +26,8 @@
 3. 주목할 도구 & 서비스
 4. 오늘의 추천 읽을거리
 
-결과물은 `briefings/YYYY-MM-DD.html` 형식으로 저장되며 자동으로 이 레포에 커밋됩니다.
+결과물은 `briefings/YYYY-MM-DD.html` 형식으로 저장되며 자동으로 이 레포에 커밋됩니다.  
+(`briefings/` 디렉토리는 초기에 비어 있으며, 태스크 첫 실행 후 파일이 쌓입니다.)
 
 ## 사전 요구사항
 
@@ -19,11 +37,19 @@
 
 ## 스케줄 태스크 설치 방법
 
-1. 이 레포를 클론합니다:
+1. 이 레포를 원하는 경로에 클론합니다:
    ```
-   git clone https://github.com/shw7701-png/AI-.git "C:\Users\Admin\Desktop\ai 샘플"
+   git clone https://github.com/shw7701-png/AI-.git <로컬-경로>
    ```
-2. Claude Code 앱에서 스케줄 태스크를 등록합니다. 태스크 프롬프트는 `.claude/scheduled-tasks/daily-ai-briefing/SKILL.md`를 참고하세요 (실제 실행 파일은 `%USERPROFILE%\.claude\scheduled-tasks\daily-ai-briefing\SKILL.md`에 자동 저장됩니다).
+   예시: `git clone https://github.com/shw7701-png/AI-.git C:\Projects\ai-briefing`
+
+2. Claude Code 앱에서 스케줄 태스크를 등록합니다:
+   - 사이드바 **Routines → New routine → Local** 클릭
+   - **Instructions**: `.claude/scheduled-tasks/daily-ai-briefing/SKILL.md` 내용을 붙여넣기
+   - **Schedule**: Daily, 07:00 AM
+   - **Working directory**: 레포를 클론한 경로로 설정 ← 반드시 프로젝트 폴더로 지정
+   - 실제 실행 파일은 `%USERPROFILE%\.claude\scheduled-tasks\daily-ai-briefing\SKILL.md`에 자동 저장됩니다
+
 3. Windows 작업 스케줄러에 Claude Code 자동 실행을 등록합니다 (아래 참고).
 
 ## Windows 작업 스케줄러 등록 (앱 자동 실행)
