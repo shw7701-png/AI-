@@ -23,7 +23,7 @@
    ```
    git clone https://github.com/shw7701-png/AI-.git "C:\Users\Admin\Desktop\ai 샘플"
    ```
-2. Claude Code 앱에서 스케줄 태스크를 등록합니다. 태스크 프롬프트는 아래 내용을 사용하세요 (실제 SKILL.md는 `%USERPROFILE%\.claude\scheduled-tasks\daily-ai-briefing\SKILL.md`에 자동 저장됩니다).
+2. Claude Code 앱에서 스케줄 태스크를 등록합니다. 태스크 프롬프트는 `.claude/scheduled-tasks/daily-ai-briefing/SKILL.md`를 참고하세요 (실제 실행 파일은 `%USERPROFILE%\.claude\scheduled-tasks\daily-ai-briefing\SKILL.md`에 자동 저장됩니다).
 3. Windows 작업 스케줄러에 Claude Code 자동 실행을 등록합니다 (아래 참고).
 
 ## Windows 작업 스케줄러 등록 (앱 자동 실행)
