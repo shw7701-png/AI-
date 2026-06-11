@@ -49,6 +49,7 @@
    - **Schedule**: Daily, 07:00 AM
    - **Working directory**: 레포를 클론한 경로로 설정 ← **반드시 프로젝트 폴더로 지정** (미설정 시 `git rev-parse` 실패)
    - 실제 실행 파일은 `%USERPROFILE%\.claude\scheduled-tasks\daily-ai-briefing\SKILL.md`에 자동 저장됩니다
+   - **SKILL.md 수정 후 동기화**: 프로젝트의 `.claude/scheduled-tasks/daily-ai-briefing/SKILL.md`를 수정한 경우, 앱에서 태스크 Edit 화면을 열어 Instructions를 다시 붙여넣어야 실제 실행에 반영됩니다
 
 3. Windows 작업 스케줄러에 Claude Code 자동 실행을 등록합니다 (아래 참고).
 

@@ -99,6 +99,12 @@ gh issue list --repo <REPO> --state open --limit 50 --json number,title,body,lab
 git push
 ```
 
+`daily-ai-briefing` SKILL.md를 수정한 경우, `mcp__scheduled-tasks__update_scheduled_task`로 실제 실행 파일도 동기화한다:
+```
+taskId: daily-ai-briefing
+prompt: <수정된 SKILL.md body 전체>
+```
+
 ### 4단계: 평가
 
 이번 라운드 결과를 아래 형식으로 출력한다:
