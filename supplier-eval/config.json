@@ -1,0 +1,8 @@
+{
+  "email": {
+    "sender": "your_gmail@gmail.com",
+    "app_password": "xxxx xxxx xxxx xxxx",
+    "recipients": ["manager@company.com"],
+    "alert_days": [90, 60, 30]
+  }
+}
