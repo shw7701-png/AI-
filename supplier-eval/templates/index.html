@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공급업체 평가 관리 시스템</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <h1>🏭 공급업체 평가 관리</h1>
+  <button class="nav-btn active" onclick="showView('dashboard', this)">대시보드</button>
+  <button class="nav-btn" onclick="showView('suppliers', this)">업체관리</button>
+  <button class="nav-btn" onclick="showView('performance', this)">실적입력</button>
+  <button class="nav-btn" onclick="showView('history', this)">평가이력</button>
+  <div class="nav-actions">
+    <button class="btn btn-secondary btn-sm" onclick="exportCSV()">CSV</button>
+    <button class="btn btn-secondary btn-sm" onclick="exportExcel()">Excel</button>
+    <button class="btn btn-secondary btn-sm" onclick="exportBackup()">백업</button>
+    <button class="btn btn-secondary btn-sm" onclick="document.getElementById('restoreInput').click()">복원</button>
+    <input type="file" id="restoreInput" accept=".zip" style="display:none" onchange="importBackup(this)">
+  </div>
+</nav>
+
+<!-- 대시보드 -->
+<div id="view-dashboard" class="view active">
+  <div class="card-row" id="dashboard-cards"></div>
+  <div class="table-wrap">
+    <div class="table-toolbar"><strong>재평가 예정 목록</strong></div>
+    <table>
+      <thead><tr><th>업체명</th><th>카테고리</th><th>최근 등급</th><th>차기 평가일</th><th>D-day</th><th>상태</th></tr></thead>
+      <tbody id="dashboard-table"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 업체관리 -->
+<div id="view-suppliers" class="view">
+  <div class="table-wrap">
+    <div class="table-toolbar">
+      <input type="text" id="supplier-search" placeholder="업체명 검색..." oninput="renderSupplierTable()">
+      <button class="btn btn-primary btn-sm" onclick="openSupplierModal(null)">+ 업체 등록</button>
+    </div>
+    <table>
+      <thead><tr><th>업체명</th><th>카테고리</th><th>담당자</th><th>연락처</th><th>Critical</th><th>등록일</th><th>관리</th></tr></thead>
+      <tbody id="supplier-table"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 실적입력 -->
+<div id="view-performance" class="view">
+  <div class="form-section">
+    <h3>업체 선택</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>공급업체</label>
+        <select id="perf-supplier-select" onchange="loadPerformance()">
+          <option value="">-- 업체 선택 --</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div id="perf-form-area" style="display:none;">
+    <!-- ISO -->
+    <div class="form-section">
+      <h3>ISO 9001:2015</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>보유 여부</label>
+          <select id="perf-iso-held" onchange="updateScorePreview()">
+            <option value="true">보유</option>
+            <option value="false">미보유</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>유효기간</label>
+          <input type="date" id="perf-iso-expiry" oninput="updateScorePreview()">
+        </div>
+      </div>
+    </div>
+    <!-- 납기/부적합 -->
+    <div class="form-section">
+      <h3>전년도 공급자 성과</h3>
+      <div class="form-row">
+        <div class="form-group"><label>납기율 목표 (%)</label><input type="number" id="perf-del-target" value="100" min="0" max="100" oninput="updateScorePreview()"></div>
+        <div class="form-group"><label>납기율 실적 (%)</label><input type="number" id="perf-del-actual" value="0" min="0" max="100" oninput="updateScorePreview()"></div>
+        <div class="form-group"><label>부적합율 목표 (%)</label><input type="number" id="perf-def-target" value="0" min="0" oninput="updateScorePreview()"></div>
+        <div class="form-group"><label>부적합율 실적 (%)</label><input type="number" id="perf-def-actual" value="0" min="0" oninput="updateScorePreview()"></div>
+      </div>
+    </div>
+    <!-- Risk (Critical만) -->
+    <div class="form-section" id="risk-section" style="display:none;">
+      <h3>Risk 평가 (Critical Supplier)</h3>
+      <div class="form-row">
+        <div class="form-group" style="flex:2;"><label>납기 관리 수준</label><input type="text" id="risk-del-level" placeholder="예: 발주 시 발품 관리"></div>
+        <div class="form-group"><label>발생도</label><input type="number" id="risk-del-occ" min="1" max="5" value="1"></div>
+        <div class="form-group"><label>심각도</label><input type="number" id="risk-del-sev" min="1" max="5" value="1"></div>
+        <div class="form-group"><label>취약성</label><input type="number" id="risk-del-vul" min="1" max="5" value="1"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="flex:2;"><label>품질 관리 수준</label><input type="text" id="risk-qua-level" placeholder="예: 입고 시 검사 관리"></div>
+        <div class="form-group"><label>발생도</label><input type="number" id="risk-qua-occ" min="1" max="5" value="1"></div>
+        <div class="form-group"><label>심각도</label><input type="number" id="risk-qua-sev" min="1" max="5" value="1"></div>
+        <div class="form-group"><label>취약성</label><input type="number" id="risk-qua-vul" min="1" max="5" value="1"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="flex:3;"><label>Risk 평가 결과</label><input type="text" id="risk-result" value="해당사항 없음"></div>
+      </div>
+    </div>
+    <!-- Critical 부가항목 -->
+    <div class="form-section">
+      <h3>부가 평가 항목</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Self Assessment</label><input type="text" id="perf-self" value="해당사항 없음"></div>
+        <div class="form-group"><label>Supply Chain 검증</label><input type="text" id="perf-chain" value="해당사항 없음"></div>
+        <div class="form-group"><label>제품 평가</label><input type="text" id="perf-product" value="제품 검사서 참조"></div>
+      </div>
+    </div>
+    <!-- 결재 -->
+    <div class="form-section">
+      <h3>결재</h3>
+      <div class="form-row">
+        <div class="form-group"><label>평가자</label><input type="text" id="perf-evaluator"></div>
+        <div class="form-group"><label>검토자</label><input type="text" id="perf-reviewer"></div>
+        <div class="form-group"><label>승인자</label><input type="text" id="perf-approver"></div>
+      </div>
+    </div>
+    <!-- 점수 미리보기 -->
+    <div class="form-section">
+      <h3>점수 미리보기</h3>
+      <div class="score-preview">
+        <div class="score-row">
+          <div class="score-item"><div class="s-label">ISO 9001</div><div class="s-val" id="prev-iso">-</div></div>
+          <div class="score-item"><div class="s-label">납기율</div><div class="s-val" id="prev-del">-</div></div>
+          <div class="score-item"><div class="s-label">부적합율</div><div class="s-val" id="prev-def">-</div></div>
+          <div class="score-item"><div class="s-label">총점</div><div class="s-val s-total" id="prev-total">-</div></div>
+          <div class="score-item"><div class="s-label">등급</div><div class="s-val s-grade" id="prev-grade">-</div></div>
+          <div class="score-item"><div class="s-label">결과</div><div class="s-val" id="prev-result">-</div></div>
+          <div class="score-item"><div class="s-label">차기평가일</div><div class="s-val" style="font-size:14px;" id="prev-next">-</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="savePerformance()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 평가이력 -->
+<div id="view-history" class="view">
+  <div class="table-wrap">
+    <div class="table-toolbar">
+      <select id="history-supplier-filter" onchange="renderHistoryTable()">
+        <option value="">전체 업체</option>
+      </select>
+    </div>
+    <table>
+      <thead><tr><th>평가서No</th><th>업체명</th><th>평가일자</th><th>총점</th><th>등급</th><th>결과</th><th>차기평가일</th><th>생성</th><th>관리</th></tr></thead>
+      <tbody id="history-table"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 업체 등록/수정 모달 -->
+<div class="modal-overlay" id="supplier-modal">
+  <div class="modal">
+    <h2 id="supplier-modal-title">업체 등록</h2>
+    <input type="hidden" id="modal-supplier-id">
+    <div class="form-row">
+      <div class="form-group"><label>업체명 *</label><input type="text" id="modal-name"></div>
+      <div class="form-group"><label>카테고리</label><input type="text" id="modal-category"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>사업자번호</label><input type="text" id="modal-bizno"></div>
+      <div class="form-group"><label>담당자</label><input type="text" id="modal-contact"></div>
+      <div class="form-group"><label>연락처</label><input type="text" id="modal-phone"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="flex:2;"><label>주소</label><input type="text" id="modal-address"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>등록일</label><input type="date" id="modal-reg-date"></div>
+      <div class="form-group" style="flex-direction:row;align-items:center;gap:8px;padding-top:20px;">
+        <input type="checkbox" id="modal-critical">
+        <label for="modal-critical">Critical Supplier</label>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="flex:1;"><label>비고</label><textarea id="modal-memo" rows="2"></textarea></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeSupplierModal()">취소</button>
+      <button class="btn btn-primary" onclick="saveSupplier()">저장</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
