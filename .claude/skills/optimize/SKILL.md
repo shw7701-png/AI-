@@ -40,12 +40,18 @@ allowed-tools: Read Edit Write Glob Grep Bash(git *) Bash(gh *) WebFetch WebSear
 아래 파일을 모두 읽고 문제를 발굴한다.
 
 ```
+CLAUDE.md
 README.md
 .gitignore
 .claude/settings.local.json
 .claude/scheduled-tasks/daily-ai-briefing/SKILL.md
 .claude/skills/review-and-issue/SKILL.md
 .claude/skills/optimize/SKILL.md
+.claude/agents/news-collector.md
+.claude/agents/git-publisher.md
+.claude/agents/project-reviewer.md
+.claude/rules/briefing-format.md
+.claude/rules/git-workflow.md
 ```
 
 점검 항목:
