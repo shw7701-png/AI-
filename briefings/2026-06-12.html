@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 모닝 브리핑 — 2026-06-12</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #7d8590;
+    --blue: #388bfd;
+    --green: #3fb950;
+    --orange: #f0883e;
+    --purple: #d2a8ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px 24px; max-width: 860px; margin: 0 auto; }
+
+  .header { padding: 24px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+  .header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .header-title { font-size: 22px; font-weight: 700; }
+  .tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: rgba(56,139,253,0.15); color: var(--blue); border: 1px solid rgba(56,139,253,0.3); }
+  .tag-agent { background: rgba(63,185,80,0.12); color: var(--green); border-color: rgba(63,185,80,0.3); }
+  .header-date { font-size: 13px; color: var(--text3); }
+
+  .section-title { font-size: 13px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+  .news-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .news-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 16px 16px 20px; position: relative; overflow: hidden; }
+  .news-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+  .news-card.c1::before { background: var(--blue); }
+  .news-card.c2::before { background: var(--orange); }
+  .news-card.c3::before { background: var(--purple); }
+  .news-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .news-summary { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 10px; }
+  .news-source { font-size: 11px; color: var(--text3); }
+  .news-source a { color: var(--blue); text-decoration: none; }
+  .num-badge { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-right: 6px; }
+  .num-badge.n1 { background: rgba(56,139,253,0.2); color: var(--blue); }
+  .num-badge.n2 { background: rgba(240,136,62,0.2); color: var(--orange); }
+  .num-badge.n3 { background: rgba(210,168,255,0.2); color: var(--purple); }
+
+  .trends { margin-bottom: 28px; }
+  .chip-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1px solid; }
+  .chip.blue { background: rgba(56,139,253,0.1); color: var(--blue); border-color: rgba(56,139,253,0.25); }
+  .chip.green { background: rgba(63,185,80,0.1); color: var(--green); border-color: rgba(63,185,80,0.25); }
+  .chip.orange { background: rgba(240,136,62,0.1); color: var(--orange); border-color: rgba(240,136,62,0.25); }
+  .chip.purple { background: rgba(210,168,255,0.1); color: var(--purple); border-color: rgba(210,168,255,0.25); }
+
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 28px; }
+  .tool-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .tool-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .tool-desc { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 8px; }
+  .status-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+  .status-new { background: rgba(63,185,80,0.15); color: var(--green); }
+  .status-update { background: rgba(56,139,253,0.15); color: var(--blue); }
+
+  .reads { margin-bottom: 28px; }
+  .read-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; display: flex; gap: 12px; }
+  .read-icon { font-size: 18px; flex-shrink: 0; }
+  .read-title a { font-size: 13px; font-weight: 600; color: var(--text); text-decoration: none; }
+  .read-title a:hover { color: var(--blue); }
+  .read-source { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+  .footer { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; display: flex; justify-content: space-between; }
+  .footer-left { font-size: 12px; color: var(--text3); }
+  .footer-right { font-size: 12px; color: var(--text3); }
+  .dot { color: var(--green); margin-right: 5px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <span class="header-title">🌅 AI 모닝 브리핑</span>
+    <span class="tag">LLM & 생성AI 특화</span>
+    <span class="tag tag-agent">by news-collector agent</span>
+  </div>
+  <div class="header-date">2026년 6월 12일 금요일 · KST 오전 7:00</div>
+</div>
+
+<div class="section-title">📰 오늘의 핵심 뉴스 Top 3</div>
+<div class="news-grid">
+  <div class="news-card c1">
+    <div class="news-title"><span class="num-badge n1">1</span>Anthropic Claude, 분기 내 $300억 ARR 돌파 · Claude Code $25억 ARR 달성</div>
+    <div class="news-summary">Anthropic의 Claude가 2026년 Q1 말 연간 반복 매출 $300억 수준에 도달하며 단 분기 만에 80배 성장을 기록했습니다. 2025년 5월 출시된 에이전틱 코딩 도구 Claude Code는 9개월 만에 $25억 ARR을 달성, AI 코딩 툴 시장의 구조 재편을 예고하고 있습니다.</div>
+    <div class="news-source">출처: <a href="https://llm-stats.com/ai-news" target="_blank">LLM Stats · AI News June 2026</a></div>
+  </div>
+  <div class="news-card c2">
+    <div class="news-title"><span class="num-badge n2">2</span>Google, Gemini 3.5 Flash로 검색 전면 교체 · Gemini 3.5 Pro 6월 출시 예고</div>
+    <div class="news-summary">Google이 Search를 Gemini 3.5 Flash 기반으로 전면 전환하여 모든 검색 결과를 AI 요약 페이지로 제공합니다. Sundar Pichai는 Google I/O 2026에서 Gemini 3.5 Pro를 "다음 달까지 제공하겠다"고 확약해 6월 출시가 확정적입니다. Gemini 3.5 Flash는 이전 Pro 대비 4배 빠른 속도로 코딩·에이전트 벤치마크를 상회합니다.</div>
+    <div class="news-source">출처: <a href="https://wavespeed.ai/blog/posts/june-2026-ai-launch-wave/" target="_blank">WaveSpeed Blog · June 2026 AI Launch Wave</a></div>
+  </div>
+  <div class="news-card c3">
+    <div class="news-title"><span class="num-badge n3">3</span>Inception Labs, 확산 아키텍처 기반 Mercury 2 공개 — 초당 1,000+ 토큰</div>
+    <div class="news-summary">Inception Labs가 기존 자기회귀 방식을 벗어난 확산(Diffusion) 아키텍처 기반의 추론 모델 Mercury 2를 출시했습니다. 토큰을 병렬로 생성해 초당 1,000토큰 이상의 속도를 구현, 에이전틱 루프·실시간 음성 서비스 등 프로덕션 환경을 타겟으로 합니다.</div>
+    <div class="news-source">출처: <a href="https://llm-stats.com/llm-updates" target="_blank">LLM Stats · AI Updates June 2026</a></div>
+  </div>
+</div>
+
+<div class="trends">
+  <div class="section-title">📈 주목 트렌드</div>
+  <div class="chip-list">
+    <span class="chip blue">AI 에이전트 시대 본격화</span>
+    <span class="chip orange">중국 LLM의 추격 가속</span>
+    <span class="chip green">엔터프라이즈 AI 인프라화</span>
+    <span class="chip purple">AI 코딩 툴 시장 급팽창</span>
+    <span class="chip blue">확산 아키텍처 상용화</span>
+  </div>
+</div>
+
+<div class="section-title">🔧 주목할 도구 & 서비스</div>
+<div class="tools-grid">
+  <div class="tool-card">
+    <div class="tool-name">Claude Security for Enterprise</div>
+    <div class="tool-desc">Claude Opus 4.7 기반 엔터프라이즈 보안 전용 모델. Microsoft Security·CrowdStrike·TrendAI 통합.</div>
+    <span class="status-badge status-new">신규 출시</span>
+  </div>
+  <div class="tool-card">
+    <div class="tool-name">Gemini 3.5 Flash</div>
+    <div class="tool-desc">Google Search 기본 모델 채택. API $1.50/$9.00 per M tokens. 3.1 Pro 대비 4배 속도.</div>
+    <span class="status-badge status-update">업데이트</span>
+  </div>
+  <div class="tool-card">
+    <div class="tool-name">Mercury 2</div>
+    <div class="tool-desc">확산 아키텍처 추론 LLM. 병렬 토큰 생성으로 1,000+ tok/s. 에이전틱·실시간 음성 특화.</div>
+    <span class="status-badge status-new">신규 출시</span>
+  </div>
+</div>
+
+<div class="reads">
+  <div class="section-title">📚 오늘의 추천 읽을거리</div>
+  <div class="read-item">
+    <div class="read-icon">📄</div>
+    <div>
+      <div class="read-title"><a href="https://news.mit.edu/2026/new-method-could-increase-llm-training-efficiency-0226" target="_blank">New method could increase LLM training efficiency</a></div>
+      <div class="read-source">MIT News · LLM 학습 비용을 획기적으로 낮추는 신기법 소개</div>
+    </div>
+  </div>
+  <div class="read-item">
+    <div class="read-icon">📄</div>
+    <div>
+      <div class="read-title"><a href="https://www.infotech.com/digital-disruption/llms-in-2026-what-s-real-what-s-hype-and-what-s-coming-next" target="_blank">LLMs in 2026: What's Real, What's Hype, and What's Coming Next</a></div>
+      <div class="read-source">Info-Tech Research Group · 2026년 LLM 현실과 과장 사이의 균형 잡힌 분석</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-left"><span class="dot">●</span>다음 브리핑 — 내일 오전 7:00 KST</div>
+  <div class="footer-right">ai-briefing-agent · git-publisher agent가 자동 커밋</div>
+</div>
+
+</body>
+</html>
