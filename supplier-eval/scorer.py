@@ -30,7 +30,7 @@ def calc_grade(total: float) -> tuple:
     elif total >= 70:
         return "B", "승인"
     elif total >= 50:
-        return "C", "조건부 승인"
+        return "C", "승인"
     return "D", "승인불가"
 
 

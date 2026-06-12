@@ -63,6 +63,32 @@
     </div>
   </div>
   <div id="perf-form-area" style="display:none;">
+    <!-- 평가서 번호 -->
+    <div class="form-section">
+      <h3>평가서 정보</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>평가서 번호 <span style="color:#888;font-size:11px;">(미입력 시 자동 생성)</span></label>
+          <input type="text" id="perf-doc-no" placeholder="예: 2026-01">
+        </div>
+        <div class="form-group">
+          <label>평가 일자</label>
+          <input type="date" id="perf-eval-date">
+        </div>
+      </div>
+    </div>
+    <!-- 파일 업로드 -->
+    <div class="form-section">
+      <h3>데이터 불러오기</h3>
+      <div class="form-row" style="align-items:center;gap:12px;">
+        <label class="btn btn-secondary btn-sm" style="cursor:pointer;margin:0;">
+          📂 파일 업로드 (Excel/CSV)
+          <input type="file" id="perf-file-input" accept=".xlsx,.xls,.csv" style="display:none" onchange="uploadPerformanceFile(this)">
+        </label>
+        <button class="btn btn-secondary btn-sm" onclick="window.location.href='/api/performance/template'">⬇ 템플릿 다운로드</button>
+        <span style="color:#888;font-size:13px;">업로드 시 아래 항목이 자동으로 채워집니다. 수기 입력도 가능합니다.</span>
+      </div>
+    </div>
     <!-- ISO -->
     <div class="form-section">
       <h3>ISO 9001:2015</h3>
@@ -143,7 +169,8 @@
       </div>
     </div>
     <div class="form-actions">
-      <button class="btn btn-primary" onclick="savePerformance()">저장</button>
+      <button class="btn btn-secondary" onclick="savePerformance()">실적 저장</button>
+      <button class="btn btn-primary" onclick="saveAndEvaluate()">실적 저장 + 평가 생성</button>
     </div>
   </div>
 </div>

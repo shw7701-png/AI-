@@ -163,6 +163,8 @@ async function loadPerformance() {
   const p = data?.performance;
   if (!p) { resetPerfForm(); return; }
 
+  document.getElementById("perf-doc-no").value = "";
+  document.getElementById("perf-eval-date").value = new Date().toISOString().slice(0, 10);
   document.getElementById("perf-iso-held").value = p.isoHeld ? "true" : "false";
   document.getElementById("perf-iso-expiry").value = p.isoExpiry || "";
   document.getElementById("perf-del-target").value = p.deliveryTarget ?? 100;
@@ -252,8 +254,52 @@ async function savePerformance() {
   if (!sid) { alert("업체를 선택하세요"); return; }
   const body = getPerfBody();
   await api(`/api/performance/${sid}`, "POST", body);
-  alert("저장되었습니다.");
+  alert("실적 데이터가 저장되었습니다.");
   await loadAll();
+}
+
+async function saveAndEvaluate() {
+  const sid = document.getElementById("perf-supplier-select").value;
+  if (!sid) { alert("업체를 선택하세요"); return; }
+  const body = getPerfBody();
+  await api(`/api/performance/${sid}`, "POST", body);
+  const evalDate = document.getElementById("perf-eval-date").value || new Date().toISOString().slice(0, 10);
+  const docNo = document.getElementById("perf-doc-no").value.trim();
+  const evalBody = { ...body, supplierId: sid, evalDate };
+  if (docNo) evalBody.docNo = docNo;
+  await api("/api/evaluations", "POST", evalBody);
+  alert("실적이 저장되고 평가이력에 추가되었습니다.");
+  await loadAll();
+  showView("history", document.querySelectorAll(".nav-btn")[3]);
+}
+
+async function uploadPerformanceFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const fd = new FormData();
+  fd.append("file", file);
+  const res = await fetch("/api/performance/parse-file", { method: "POST", body: fd });
+  input.value = "";
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    alert(e.error || "파일 파싱 오류");
+    return;
+  }
+  const p = await res.json();
+  document.getElementById("perf-iso-held").value = p.isoHeld ? "true" : "false";
+  document.getElementById("perf-iso-expiry").value = p.isoExpiry || "";
+  document.getElementById("perf-del-target").value = p.deliveryTarget ?? 100;
+  document.getElementById("perf-del-actual").value = p.deliveryActual ?? 0;
+  document.getElementById("perf-def-target").value = p.defectTarget ?? 0;
+  document.getElementById("perf-def-actual").value = p.defectActual ?? 0;
+  document.getElementById("perf-self").value = p.selfAssessment || "해당사항 없음";
+  document.getElementById("perf-chain").value = p.supplyChain || "해당사항 없음";
+  document.getElementById("perf-product").value = p.productEval || "제품 검사서 참조";
+  if (p.evaluator) document.getElementById("perf-evaluator").value = p.evaluator;
+  if (p.reviewer) document.getElementById("perf-reviewer").value = p.reviewer;
+  if (p.approver) document.getElementById("perf-approver").value = p.approver;
+  updateScorePreview();
+  alert("파일에서 데이터를 불러왔습니다. 내용 확인 후 저장하세요.");
 }
 
 // ── History ───────────────────────────────────────────────────────────────────

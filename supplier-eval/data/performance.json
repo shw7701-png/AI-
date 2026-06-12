@@ -1,33 +1,33 @@
 [
   {
-    "approver": "이영희",
-    "defectTarget": 0,
-    "deliveryTarget": 100,
+    "supplierId": "b111215b-c2b0-4505-b353-e602448fff53",
+    "isoHeld": true,
     "isoExpiry": "2028-05-12",
-    "productEval": "제품 검사서 참조",
-    "risk": {
-      "quality": {
-        "occurrence": 1,
-        "level": "입고 시 검사 관리",
-        "vulnerability": 1,
-        "severity": 1
-      },
-      "result": "해당사항 없음",
-      "delivery": {
-        "occurrence": 1,
-        "level": "발주 시 발품 관리",
-        "vulnerability": 2,
-        "severity": 2
-      }
-    },
+    "deliveryTarget": 100,
+    "deliveryActual": 100,
+    "defectTarget": 0,
     "defectActual": 0,
-    "deliveryActual": 99,
-    "reviewer": "김철수",
-    "evaluator": "홍길동",
+    "risk": {
+      "delivery": {
+        "level": "발주 시 발품 관리",
+        "occurrence": 1,
+        "severity": 2,
+        "vulnerability": 2
+      },
+      "quality": {
+        "level": "입고 시 검사 관리",
+        "occurrence": 1,
+        "severity": 1,
+        "vulnerability": 1
+      },
+      "result": "납기율 및 부적합율 주기적 관리 필요"
+    },
     "selfAssessment": "해당사항 없음",
     "supplyChain": "해당사항 없음",
-    "isoHeld": true,
-    "supplierId": "b111215b-c2b0-4505-b353-e602448fff53",
+    "productEval": "제품 검사서 참조",
+    "evaluator": "서형완",
+    "reviewer": "하성수",
+    "approver": "이정욱",
     "updatedDate": "2026-06-12"
   }
 ]

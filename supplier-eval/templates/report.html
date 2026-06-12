@@ -130,7 +130,7 @@
         <ol class="note-list">
           <li>ISO 9001:2015 인증서 보유 공급협력업체 경우 인증서 유효기간을 평가결과에 기입한다.</li>
           <li>ISO 9001:2015 인증 보유 공급협력업체는 Self Assessment 평가를 제외한다.</li>
-          <li>Critical Supplier 평가는 해당된다.</li>
+          <li>제품 평가는 Critical Supplier만 해당된다.</li>
           <li>제품 품질에 영향을 주는 원재료 공급협력업체(Critical)인 당사는 Direct로 구매를 진행하기 때문에 Supply Chain 검증은 공급자 평가 항목에서 제외한다.</li>
           <li>평가 결과에 대한 Grade는 아래 평가 결과 및 항목에 Check하고 승인/재승인 여부를 결정한다.</li>
           <li>평가에 사용된 문서는 (ISO 9001:2015 인증서, 전년도 공급자 성과 등) 보고서에 첨부하여야 한다.</li>
@@ -141,7 +141,10 @@
   </table>
 
   <!-- 평가 결과 -->
-  <table class="grade-table">
+  <table class="grade-table" style="table-layout:fixed;">
+    <colgroup>
+      <col style="width:25%"><col style="width:25%"><col style="width:25%"><col style="width:25%">
+    </colgroup>
     <tr><td colspan="4" class="section-header">평가 결과</td></tr>
     <tr>
       <td class="{{ 'selected-grade' if evaluation.grade == 'A' else '' }}">A</td>
@@ -156,8 +159,8 @@
       <td>{{ '▼' if evaluation.grade == 'D' else '' }}</td>
     </tr>
     <tr>
-      <td colspan="2">승인</td>
-      <td colspan="2">승인 불가</td>
+      <td colspan="3">승인</td>
+      <td>승인불가</td>
     </tr>
     <tr>
       <td colspan="4" style="text-align:center; font-size:13px;">
