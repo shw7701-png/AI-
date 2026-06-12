@@ -43,3 +43,5 @@ description: 매일 오전 7시 LLM & 생성AI 동향 브리핑 (HTML 형식)
 - 심화 질문을 유도하는 `sendPrompt` 버튼 2~3개 (구매 업무 관련)
 - 다크모드 호환 CSS 변수 사용
 - 언어: 한국어 요약 + 원문 출처 링크
+- **CSS 변수 필수**: `:root` 하드코딩 색상 금지. 모든 색상은 `var(--color-background-*)`, `var(--color-text-*)`, `var(--color-border-*)` 변수만 사용
+- **sendPrompt 버튼 필수**: 브리핑 하단에 구매 업무 관련 심화 질문 버튼 2~3개 (`onclick="sendPrompt('...')")`

@@ -5,67 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 모닝 브리핑 — 와이어로프·조달 Edition — 2026-06-12</title>
 <style>
-  :root {
-    --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--border:#30363d;
-    --text:#e6edf3;--text2:#8b949e;--text3:#7d8590;
-    --blue:#388bfd;--green:#3fb950;--orange:#f0883e;
-    --purple:#d2a8ff;--red:#ff7b72;--yellow:#e3b341;
-  }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;padding:32px 24px;max-width:880px;margin:0 auto;}
-  .header{padding:22px 0 18px;border-bottom:1px solid var(--border);margin-bottom:22px;}
+  body{background:var(--color-background-tertiary);color:var(--color-text-primary);font-family:'Segoe UI',system-ui,sans-serif;padding:32px 24px;max-width:880px;margin:0 auto;}
+  .header{padding:22px 0 18px;border-bottom:1px solid var(--color-border-tertiary);margin-bottom:22px;}
   .header-row1{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
   .title{font-size:20px;font-weight:700;}
-  .subtitle{font-size:12px;color:var(--text3);margin-bottom:8px;}
+  .subtitle{font-size:12px;color:var(--color-text-tertiary);margin-bottom:8px;}
   .tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;}
-  .tag-blue{background:rgba(56,139,253,.15);color:var(--blue);border:1px solid rgba(56,139,253,.3);}
-  .tag-orange{background:rgba(240,136,62,.13);color:var(--orange);border:1px solid rgba(240,136,62,.3);}
-  .legend{display:flex;gap:16px;font-size:11px;color:var(--text3);}
-  .action-box{background:rgba(56,139,253,.07);border:1px solid rgba(56,139,253,.3);border-left:3px solid var(--blue);border-radius:8px;padding:14px 16px;margin-bottom:22px;}
-  .action-title{font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;}
+  .tag-blue{background:var(--color-background-info);color:var(--color-text-info);border:1px solid var(--color-border-info);}
+  .tag-orange{background:var(--color-background-warning);color:var(--color-text-warning);border:1px solid var(--color-border-warning);}
+  .legend{display:flex;gap:16px;font-size:11px;color:var(--color-text-tertiary);}
+  .action-box{background:var(--color-background-info);border:0.5px solid var(--color-border-info);border-left:3px solid var(--color-border-info);border-radius:8px;padding:14px 16px;margin-bottom:22px;}
+  .action-title{font-size:12px;font-weight:700;color:var(--color-text-info);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;}
   .action-item{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;}
-  .action-num{background:var(--blue);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
-  .action-text{font-size:13px;color:var(--text2);line-height:1.55;}
-  .action-text strong{color:var(--text);}
-  .sec-title{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  .action-num{background:var(--color-text-info);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .action-text{font-size:13px;color:var(--color-text-secondary);line-height:1.55;}
+  .action-text strong{color:var(--color-text-primary);}
+  .sec-title{font-size:12px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--color-border-tertiary);}
   .news-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
-  .news-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 14px 14px 18px;position:relative;overflow:hidden;}
+  .news-card{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:8px;padding:14px 14px 14px 18px;position:relative;overflow:hidden;}
   .news-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
-  .nc-red::before{background:var(--red);}
-  .nc-yellow::before{background:var(--yellow);}
-  .nc-gray::before{background:var(--bg3);}
+  .nc-red::before{background:var(--color-border-danger);}
+  .nc-yellow::before{background:var(--color-border-warning);}
+  .nc-gray::before{background:var(--color-border-tertiary);}
   .news-header{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;}
   .rel-badge{font-size:11px;padding:2px 8px;border-radius:12px;white-space:nowrap;flex-shrink:0;margin-top:1px;font-weight:600;}
-  .rb-red{background:rgba(255,123,114,.15);color:var(--red);border:1px solid rgba(255,123,114,.3);}
-  .rb-yellow{background:rgba(227,179,65,.13);color:var(--yellow);border:1px solid rgba(227,179,65,.3);}
-  .rb-gray{background:rgba(139,148,158,.1);color:var(--text3);border:1px solid rgba(139,148,158,.2);}
-  .news-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.4;}
-  .news-reason{font-size:11px;color:var(--text3);margin-bottom:7px;font-style:italic;}
-  .news-summary{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px;}
-  .news-src{font-size:11px;color:var(--text3);}
-  .news-src a{color:var(--blue);text-decoration:none;}
+  .rb-red{background:var(--color-background-danger);color:var(--color-text-danger);border:0.5px solid var(--color-border-danger);}
+  .rb-yellow{background:var(--color-background-warning);color:var(--color-text-warning);border:0.5px solid var(--color-border-warning);}
+  .rb-gray{background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);}
+  .news-title{font-size:14px;font-weight:600;color:var(--color-text-primary);line-height:1.4;}
+  .news-reason{font-size:11px;color:var(--color-text-tertiary);margin-bottom:7px;font-style:italic;}
+  .news-summary{font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:8px;}
+  .news-src{font-size:11px;color:var(--color-text-tertiary);}
+  .news-src a{color:var(--color-text-info);text-decoration:none;}
   .chip-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
   .chip{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid;}
-  .c-red{background:rgba(255,123,114,.1);color:var(--red);border-color:rgba(255,123,114,.25);}
-  .c-yellow{background:rgba(227,179,65,.1);color:var(--yellow);border-color:rgba(227,179,65,.25);}
-  .c-blue{background:rgba(56,139,253,.1);color:var(--blue);border-color:rgba(56,139,253,.25);}
+  .c-red{background:var(--color-background-danger);color:var(--color-text-danger);border-color:var(--color-border-danger);}
+  .c-yellow{background:var(--color-background-warning);color:var(--color-text-warning);border-color:var(--color-border-warning);}
+  .c-blue{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info);}
   .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
-  .tool-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:13px;}
+  .tool-card{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:8px;padding:13px;}
   .tool-row{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
-  .tool-name{font-size:13px;font-weight:600;color:var(--text);}
-  .tool-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:7px;}
+  .tool-name{font-size:13px;font-weight:600;color:var(--color-text-primary);}
+  .tool-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:7px;}
   .status{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;}
-  .s-new{background:rgba(63,185,80,.15);color:var(--green);}
-  .s-update{background:rgba(56,139,253,.15);color:var(--blue);}
-  .s-hot{background:rgba(240,136,62,.15);color:var(--orange);}
+  .s-new{background:var(--color-background-success);color:var(--color-text-success);}
+  .s-update{background:var(--color-background-info);color:var(--color-text-info);}
+  .s-hot{background:var(--color-background-warning);color:var(--color-text-warning);}
   .reads{margin-bottom:22px;}
-  .read-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;gap:10px;}
+  .read-item{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;gap:10px;}
   .read-icon{font-size:17px;flex-shrink:0;}
-  .read-title a{font-size:13px;font-weight:600;color:var(--text);text-decoration:none;}
-  .read-src{font-size:11px;color:var(--text3);margin-top:3px;}
-  .footer{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;}
-  .footer-l,.footer-r{font-size:12px;color:var(--text3);}
-  .dot{color:var(--green);margin-right:4px;}
+  .read-title a{font-size:13px;font-weight:600;color:var(--color-text-primary);text-decoration:none;}
+  .read-src{font-size:11px;color:var(--color-text-tertiary);margin-top:3px;}
+  .footer{background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;}
+  .footer-l,.footer-r{font-size:12px;color:var(--color-text-tertiary);}
+  .dot{color:var(--color-text-success);margin-right:4px;}
 </style>
 </head>
 <body>
@@ -167,6 +161,11 @@
 <div class="footer">
   <div class="footer-l"><span class="dot">●</span>다음 브리핑 — 내일 오전 7:00 KST</div>
   <div class="footer-r">ai-briefing-agent · 와이어로프·조달 Edition</div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:16px 0;">
+  <button onclick="sendPrompt('Leverage AI와 Coupa 중 우리 회사 ERP 환경에 맞는 구매 자동화 툴을 비교해줘')">구매 자동화 툴 비교 ↗</button>
+  <button onclick="sendPrompt('공급망 AI 리스크 경보 시스템 도입 시 체크리스트를 만들어줘')">공급망 리스크 도입 체크리스트 ↗</button>
+  <button onclick="sendPrompt('와이어로프 공급업체 AI 품질검사 도입 현황을 조사해줘')">공급업체 AI 검사 현황 조사 ↗</button>
 </div>
 </body>
 </html>
