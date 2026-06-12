@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: '맑은 고딕', Arial, sans-serif; font-size: 11px; margin: 0; padding: 20px; color: #000; }
+  .report-wrap { max-width: 800px; margin: auto; }
+  h1 { text-align: center; font-size: 18px; margin-bottom: 4px; }
+  h2 { text-align: center; font-size: 14px; margin-top: 0; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 12px; }
+  th, td { border: 1px solid #555; padding: 5px 8px; }
+  th { background: #d9e1f2; text-align: center; }
+  .section-header { background: #bdd7ee; font-weight: bold; text-align: center; }
+  .grade-table td { text-align: center; font-size: 14px; font-weight: bold; }
+  .selected-grade { background: #ffd700; }
+  .sign-table td { height: 40px; text-align: center; }
+  .note-list { font-size: 10px; }
+  .note-list li { margin-bottom: 2px; }
+  @media print {
+    body { padding: 0; }
+    @page { margin: 15mm; }
+  }
+</style>
+</head>
+<body>
+<div class="report-wrap">
+  <h1>공급업체 재평가 보고서</h1>
+  <h2>(Supplier Re-evaluation Report)</h2>
+
+  <!-- 헤더 -->
+  <table>
+    <tr>
+      <th>평가서 No.</th><td>{{ evaluation.docNo }}</td>
+      <th>공급업체 명</th><td>{{ supplier.name }}</td>
+      <th>평가 일자</th><td>{{ evaluation.evalDate }}</td>
+    </tr>
+  </table>
+
+  <!-- Risk 평가 -->
+  <table>
+    <tr><td colspan="6" class="section-header">Risk 평가 결과 (Critical Supplier만 해당)</td></tr>
+    {% if supplier.isCritical %}
+    <tr>
+      <th rowspan="2">Risk 식별</th>
+      <th rowspan="2">현 관리 수준</th>
+      <th colspan="3" style="text-align:center;">위험도</th>
+    </tr>
+    <tr><th>발생도</th><th>심각도</th><th>취약성</th></tr>
+    <tr>
+      <td>납기 관리</td>
+      <td>{{ evaluation.risk.delivery.level if evaluation.risk.delivery else '-' }}</td>
+      <td style="text-align:center;">{{ evaluation.risk.delivery.occurrence if evaluation.risk.delivery else '-' }}</td>
+      <td style="text-align:center;">{{ evaluation.risk.delivery.severity if evaluation.risk.delivery else '-' }}</td>
+      <td style="text-align:center;">{{ evaluation.risk.delivery.vulnerability if evaluation.risk.delivery else '-' }}</td>
+    </tr>
+    <tr>
+      <td>품질 관리</td>
+      <td>{{ evaluation.risk.quality.level if evaluation.risk.quality else '-' }}</td>
+      <td style="text-align:center;">{{ evaluation.risk.quality.occurrence if evaluation.risk.quality else '-' }}</td>
+      <td style="text-align:center;">{{ evaluation.risk.quality.severity if evaluation.risk.quality else '-' }}</td>
+      <td style="text-align:center;">{{ evaluation.risk.quality.vulnerability if evaluation.risk.quality else '-' }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" style="text-align:center;">해당사항 없음 (Critical Supplier 미해당)</td></tr>
+    {% endif %}
+    <tr>
+      <th colspan="2">Risk 평가 결과</th>
+      <td colspan="4">{{ evaluation.risk.result if evaluation.risk else '해당사항 없음' }}</td>
+    </tr>
+  </table>
+
+  <!-- 평가 항목 -->
+  <table>
+    <tr><td colspan="4" class="section-header">평가 항목</td></tr>
+    <tr>
+      <th style="width:20%;">항 목</th>
+      <th style="width:15%;"></th>
+      <th style="width:50%;">평가 결과</th>
+      <th style="width:15%;">평가 점수</th>
+    </tr>
+    <tr>
+      <td colspan="2">ISO 9001:2015 보유 유무</td>
+      <td>
+        {% if evaluation.isoHeld %}
+          ISO 9001:2015 인증보유<br>(유효일정: {{ evaluation.isoExpiry }})
+        {% else %}
+          미보유
+        {% endif %}
+      </td>
+      <td style="text-align:center;">{{ evaluation.isoScore }}</td>
+    </tr>
+    <tr>
+      <td colspan="2">Self Assessment 평가</td>
+      <td>{{ evaluation.selfAssessment or '해당사항 없음' }}</td>
+      <td style="text-align:center;">-</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Critical Supplier 해당</td>
+      <td>Supplier Chain 검증</td>
+      <td>{{ evaluation.supplyChain or '해당사항 없음' }}</td>
+      <td style="text-align:center;">-</td>
+    </tr>
+    <tr>
+      <td>제품 평가</td>
+      <td>{{ evaluation.productEval or '-' }}</td>
+      <td style="text-align:center;">-</td>
+    </tr>
+    <tr>
+      <td rowspan="2">전년도 공급자 성과</td>
+      <td>납기율</td>
+      <td>목표 {{ evaluation.deliveryTarget }}% 대비 실적 {{ evaluation.deliveryActual }}% 달성</td>
+      <td style="text-align:center;">{{ evaluation.deliveryScore }}</td>
+    </tr>
+    <tr>
+      <td>부적합율</td>
+      <td>목표 {{ evaluation.defectTarget }}% 대비 실적 {{ evaluation.defectActual }}% 달성</td>
+      <td style="text-align:center;">{{ evaluation.defectScore }}</td>
+    </tr>
+    <tr>
+      <th colspan="3" style="text-align:right; padding-right:16px;">총 점</th>
+      <th style="text-align:center;">{{ evaluation.totalScore }}</th>
+    </tr>
+  </table>
+
+  <!-- 참고 사항 -->
+  <table>
+    <tr><td class="section-header">평가 시 참고 사항</td></tr>
+    <tr>
+      <td>
+        <ol class="note-list">
+          <li>ISO 9001:2015 인증서 보유 공급협력업체 경우 인증서 유효기간을 평가결과에 기입한다.</li>
+          <li>ISO 9001:2015 인증 보유 공급협력업체는 Self Assessment 평가를 제외한다.</li>
+          <li>Critical Supplier 평가는 해당된다.</li>
+          <li>제품 품질에 영향을 주는 원재료 공급협력업체(Critical)인 당사는 Direct로 구매를 진행하기 때문에 Supply Chain 검증은 공급자 평가 항목에서 제외한다.</li>
+          <li>평가 결과에 대한 Grade는 아래 평가 결과 및 항목에 Check하고 승인/재승인 여부를 결정한다.</li>
+          <li>평가에 사용된 문서는 (ISO 9001:2015 인증서, 전년도 공급자 성과 등) 보고서에 첨부하여야 한다.</li>
+          <li>현장평가를 시행하지 않은 공급협력업체 중 식별된 Risk의 심각도가 4 이상 존재할 경우 원격심사 및 제품 심사를 수행하여야 한다.</li>
+        </ol>
+      </td>
+    </tr>
+  </table>
+
+  <!-- 평가 결과 -->
+  <table class="grade-table">
+    <tr><td colspan="4" class="section-header">평가 결과</td></tr>
+    <tr>
+      <td class="{{ 'selected-grade' if evaluation.grade == 'A' else '' }}">A</td>
+      <td class="{{ 'selected-grade' if evaluation.grade == 'B' else '' }}">B</td>
+      <td class="{{ 'selected-grade' if evaluation.grade == 'C' else '' }}">C</td>
+      <td class="{{ 'selected-grade' if evaluation.grade == 'D' else '' }}">D</td>
+    </tr>
+    <tr>
+      <td>{{ '▼' if evaluation.grade == 'A' else '' }}</td>
+      <td>{{ '▼' if evaluation.grade == 'B' else '' }}</td>
+      <td>{{ '▼' if evaluation.grade == 'C' else '' }}</td>
+      <td>{{ '▼' if evaluation.grade == 'D' else '' }}</td>
+    </tr>
+    <tr>
+      <td colspan="2">승인</td>
+      <td colspan="2">승인 불가</td>
+    </tr>
+    <tr>
+      <td colspan="4" style="text-align:center; font-size:13px;">
+        {{ evaluation.result }}
+        &nbsp;|&nbsp; 차기 평가 예정일: {{ evaluation.nextEvalDate }}
+        {% if evaluation.isAutoGenerated %}&nbsp;[자동 생성]{% endif %}
+      </td>
+    </tr>
+  </table>
+
+  <!-- 결재 -->
+  <table class="sign-table">
+    <tr><td colspan="3" class="section-header">결토 및 승인</td></tr>
+    <tr>
+      <th style="width:33%;">평가자</th>
+      <th style="width:34%;">검토자</th>
+      <th style="width:33%;">승인자</th>
+    </tr>
+    <tr>
+      <td>{{ evaluation.evaluator }}</td>
+      <td>{{ evaluation.reviewer }}</td>
+      <td>{{ evaluation.approver }}</td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
